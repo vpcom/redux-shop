@@ -2,7 +2,20 @@
 
 Dummy e-shop demonstrating Redux
 
-# Git initialization
+<table>
+  <tr>
+    <td><img src="src/assets/screenshot.png" width="400" style="border: 2px solid #ddd; border-radius: 8px;"/></td>
+    <td><img src="src/assets/screenshot_cart_open.png" width="400" style="border: 2px solid #ddd; border-radius: 8px;"/></td>
+  </tr>
+  <tr>
+    <td align="center">Product Catalog</td>
+    <td align="center">Shopping Cart</td>
+  </tr>
+</table>
+
+
+## Setup steps
+### Git initialization
 
 ```
 git init
@@ -11,7 +24,7 @@ git remote set-url origin https://github.com/vpcom/redux-shop.git
 git remote -v
 ```
 
-# Install dependencies
+### Install dependencies
 
 ```
 npm install redux @reduxjs/toolkit react-redux react-router-dom axios
