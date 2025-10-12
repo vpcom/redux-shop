@@ -11,9 +11,11 @@ import {
   Zap,
 } from "lucide-react";
 import './App.css';
+import Cart from "./components/Cart/Cart";
+import { mockProducts } from "./mockProducts";
 
 // Types
-interface Product {
+export interface Product {
   id: number;
   name: string;
   price: number;
@@ -23,124 +25,9 @@ interface Product {
   stock: number;
 }
 
-interface CartItem extends Product {
+export interface CartItem extends Product {
   quantity: number;
 }
-
-// Mock API data
-const mockProducts = [
-  {
-    id: 1,
-    name: "NFC Mifare Classic Card",
-    price: 12.99,
-    category: "NFC",
-    description: "Original 13.56MHz RFID card, perfect for collectors",
-    image: "nfc",
-    stock: 25,
-  },
-  {
-    id: 2,
-    name: "Bitcoin Genesis Block NFT",
-    price: 299.99,
-    category: "Blockchain",
-    description:
-      "Limited edition digital collectible commemorating Bitcoin's first block",
-    image: "blockchain",
-    stock: 10,
-  },
-  {
-    id: 3,
-    name: "GPT-3 Launch Token",
-    price: 89.99,
-    category: "AI",
-    description: "Commemorative token from OpenAI's GPT-3 launch event",
-    image: "ai",
-    stock: 15,
-  },
-  {
-    id: 4,
-    name: "Ethereum Proof-of-Stake Pin",
-    price: 45.5,
-    category: "Blockchain",
-    description: "Limited edition pin celebrating The Merge to PoS",
-    image: "blockchain",
-    stock: 30,
-  },
-  {
-    id: 5,
-    name: "NFC Ring Gen 1",
-    price: 67.0,
-    category: "NFC",
-    description: "First generation NFC smart ring, rare collector's item",
-    image: "nfc",
-    stock: 8,
-  },
-  {
-    id: 6,
-    name: "Neural Network Chip Prototype",
-    price: 199.99,
-    category: "AI",
-    description: "Early prototype of dedicated AI inference chip",
-    image: "ai",
-    stock: 5,
-  },
-  {
-    id: 7,
-    name: "Lightning Network Node Badge",
-    price: 34.99,
-    category: "Blockchain",
-    description: "Official badge for early Lightning Network node operators",
-    image: "blockchain",
-    stock: 20,
-  },
-  {
-    id: 8,
-    name: "RFID Implant Kit v1.0",
-    price: 149.99,
-    category: "NFC",
-    description: "Original RFID biohacking implant kit, sealed",
-    image: "nfc",
-    stock: 3,
-  },
-  {
-    id: 9,
-    name: "AlphaGo Victory Commemorative",
-    price: 129.99,
-    category: "AI",
-    description:
-      "Limited edition piece from DeepMind's historic AlphaGo victory",
-    image: "ai",
-    stock: 12,
-  },
-  {
-    id: 10,
-    name: "Smart Contract Ledger",
-    price: 78.99,
-    category: "Blockchain",
-    description:
-      "Physical ledger containing first 1000 smart contracts on Ethereum",
-    image: "blockchain",
-    stock: 18,
-  },
-  {
-    id: 11,
-    name: "Quantum Computing Demo Chip",
-    price: 499.99,
-    category: "Quantum",
-    description: "Decommissioned quantum qubit demonstration chip",
-    image: "quantum",
-    stock: 2,
-  },
-  {
-    id: 12,
-    name: "IoT Sensor Array v1",
-    price: 54.99,
-    category: "IoT",
-    description: "First generation IoT environmental sensor array",
-    image: "iot",
-    stock: 22,
-  },
-];
 
 // Icon mapping
 const categoryIcons: Record<string, React.ComponentType<any>> = {
@@ -379,91 +266,6 @@ export default function App() {
     );
   };
 
-  // Cart Sidebar
-  const CartSidebar = () => (
-    <div className={`cart-sidebar ${showCart ? 'open' : ''}`}>
-      <div className="cart-header">
-        <h2 className="cart-title">
-          Cart ({cartItemCount})
-        </h2>
-        <button
-          onClick={() => setShowCart(false)}
-          className="cart-close-button"
-        >
-          <X className="w-6 h-6" />
-        </button>
-      </div>
-
-      <div className="cart-content">
-        {cart.length === 0 ? (
-          <div className="cart-empty">
-            <ShoppingCart className="cart-empty-icon" />
-            <p>Your cart is empty</p>
-          </div>
-        ) : (
-          <div className="cart-items">
-            {cart.map((item) => (
-              <div key={item.id} className="cart-item">
-                <div className="cart-item-header">
-                  <h3 className="cart-item-name">
-                    {item.name}
-                  </h3>
-                  <button
-                    onClick={() => removeFromCart(item.id)}
-                    className="cart-item-remove"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                <div className="cart-item-controls">
-                  <div className="cart-quantity-controls">
-                    <button
-                      onClick={() => updateQuantity(item.id, -1)}
-                      className="cart-quantity-button"
-                    >
-                      -
-                    </button>
-                    <span className="cart-quantity">{item.quantity}</span>
-                    <button
-                      onClick={() => updateQuantity(item.id, 1)}
-                      className="cart-quantity-button"
-                    >
-                      +
-                    </button>
-                  </div>
-                  <span className="cart-item-price">
-                    ${(item.price * item.quantity).toFixed(2)}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {cart.length > 0 && (
-        <div className="cart-footer">
-          <div className="cart-total">
-            <span>Total:</span>
-            <span>${cartTotal.toFixed(2)}</span>
-          </div>
-          <button
-            onClick={checkout}
-            className="cart-checkout-button"
-          >
-            Checkout
-          </button>
-          <button
-            onClick={clearCart}
-            className="cart-clear-button"
-          >
-            Clear Cart
-          </button>
-        </div>
-      )}
-    </div>
-  );
-
   return (
     <div className="app-container">
       {/* Navbar */}
@@ -487,7 +289,6 @@ export default function App() {
             onClick={() => setShowCart(true)}
             className="cart-button"
           >
-            <ShoppingCart className="cart-button-icon" />
             Cart
             {cartItemCount > 0 && (
               <span className="cart-badge">
@@ -564,7 +365,17 @@ export default function App() {
       </div>
 
       {/* Cart Sidebar */}
-      <CartSidebar />
+      <Cart
+        cart={cart}
+        cartItemCount={cartItemCount}
+        cartTotal={cartTotal}
+        showCart={showCart}
+        onClose={() => setShowCart(false)}
+        onRemoveFromCart={removeFromCart}
+        onUpdateQuantity={updateQuantity}
+        onCheckout={checkout}
+        onClearCart={clearCart}
+      />
 
       {/* Overlay */}
       {showCart && (
