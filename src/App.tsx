@@ -145,8 +145,6 @@ export default function App() {
     setShowCart(false);
   };
   
-  // ...existing code...
-
   return (
     <div className="app-container">
       {/* Navbar */}
