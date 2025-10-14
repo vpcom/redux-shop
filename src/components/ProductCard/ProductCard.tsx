@@ -7,8 +7,9 @@ import {
   Cpu,
 } from "lucide-react";
 import "./ProductCard.css";
-// import { Product } from "../../App";
 import type { Product } from "../../Types/product";
+import { addToCart } from '../../redux/slices/cartSlice';
+import { useAppDispatch } from '../../redux/hooks'
 
 const categoryIcons: Record<string, React.ComponentType<any>> = {
   NFC: Zap,
@@ -36,6 +37,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onViewProduct, onAdd
   const Icon = categoryIcons[product.category] || Package;
   const colorClass = categoryColors[product.category] || "category-default";
 
+  const dispatch = useAppDispatch();
+
   return (
     <div className="product-card">
       <div className={`product-card-image ${colorClass}-light`}>
@@ -62,6 +65,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onViewProduct, onAdd
           >
             Add to Cart
           </button>
+          <button
+            onClick={() => dispatch(addToCart({ productId: product.id, title: product.name, price: product.price }))}
+            className="product-button product-button-primary"
+          >
+            Add to Cart (store)
+          </button>
+          
         </div>
       </div>
     </div>

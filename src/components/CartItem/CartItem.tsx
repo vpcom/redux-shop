@@ -5,8 +5,8 @@ import "./CartItem.css";
 
 interface CartItemProps {
   item: CartItemType;
-  onRemove: (id: number) => void;
-  onUpdateQuantity: (id: number, delta: number) => void;
+  onRemove: (id: string) => void;
+  onUpdateQuantity: (id: string, delta: number) => void;
 }
 
 const CartItem: React.FC<CartItemProps> = ({ item, onRemove, onUpdateQuantity }) => (

@@ -1,44 +1,21 @@
 import React, { useState, useEffect, useMemo } from "react";
 import {
-  ShoppingCart,
   Search,
-  ChevronDown,
-  X,
-  Package,
-  Cpu,
-  Blocks,
-  Brain,
-  Zap,
 } from "lucide-react";
 import './App.css';
 import Cart from "./components/Cart/Cart";
-import { mockProducts } from "./mockProducts";
 import ProductCard from "./components/ProductCard/ProductCard";
+import { mockProducts } from "./mockProducts";
 import ProductDetailCard from "./components/ProductDetailCard/ProductDetailCard";
 import NavBar from "./components/NavBar/NavBar";
 import type { Product } from "./Types/product";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { fetchProducts } from "./redux/slices/productsSlice";
 
 export interface CartItem extends Product {
   quantity: number;
 }
 
-// Icon mapping
-const categoryIcons: Record<string, React.ComponentType<any>> = {
-  NFC: Zap,
-  Blockchain: Blocks,
-  AI: Brain,
-  Quantum: Cpu,
-  IoT: Package,
-};
-
-// Color mapping for categories
-const categoryColors: Record<string, string> = {
-  NFC: "category-nfc",
-  Blockchain: "category-blockchain",
-  AI: "category-ai",
-  Quantum: "category-quantum",
-  IoT: "category-iot",
-};
 
 // Main App Component
 export default function App() {
@@ -52,6 +29,9 @@ export default function App() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showCart, setShowCart] = useState(false);
 
+    const dispatch = useAppDispatch();
+  // const { data: products, status: loading, error } = useAppSelector(state => state.products);
+
   // Simulate API fetch
   useEffect(() => {
     setTimeout(() => {
@@ -59,6 +39,11 @@ export default function App() {
       setLoading(false);
     }, 500);
   }, []);
+  
+  // Load products from Redux
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
 
   // Get unique categories
   const categories = useMemo(() => {
@@ -103,14 +88,14 @@ export default function App() {
     });
   };
 
-  const removeFromCart = (productId: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== productId));
+  const removeFromCart = (id: string) => {
+    setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const updateQuantity = (productId: number, delta: number) => {
+  const updateQuantity = (id: string, delta: number) => {
     setCart((prev) =>
       prev.map((item) => {
-        if (item.id === productId) {
+        if (item.id === id) {
           const newQty = Math.max(1, item.quantity + delta);
           return { ...item, quantity: newQty };
         }

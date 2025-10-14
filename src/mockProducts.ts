@@ -1,8 +1,8 @@
-import type { Product } from "./App";
+import type { Product } from "./Types/product";
 
 export const mockProducts: Product[] = [
   {
-    id: 1,
+    id: "1",
     name: "NFC Mifare Classic Card",
     price: 12.99,
     category: "NFC",
@@ -11,7 +11,7 @@ export const mockProducts: Product[] = [
     stock: 25,
   },
   {
-    id: 2,
+    id: "2",
     name: "Bitcoin Genesis Block NFT",
     price: 299.99,
     category: "Blockchain",
@@ -21,7 +21,7 @@ export const mockProducts: Product[] = [
     stock: 10,
   },
   {
-    id: 3,
+    id: "3",
     name: "GPT-3 Launch Token",
     price: 89.99,
     category: "AI",
@@ -30,7 +30,7 @@ export const mockProducts: Product[] = [
     stock: 15,
   },
   {
-    id: 4,
+    id: "4",
     name: "Ethereum Proof-of-Stake Pin",
     price: 45.5,
     category: "Blockchain",
@@ -39,7 +39,7 @@ export const mockProducts: Product[] = [
     stock: 30,
   },
   {
-    id: 5,
+    id: "5",
     name: "NFC Ring Gen 1",
     price: 67.0,
     category: "NFC",
@@ -48,7 +48,7 @@ export const mockProducts: Product[] = [
     stock: 8,
   },
   {
-    id: 6,
+    id: "6",
     name: "Neural Network Chip Prototype",
     price: 199.99,
     category: "AI",
@@ -57,7 +57,7 @@ export const mockProducts: Product[] = [
     stock: 5,
   },
   {
-    id: 7,
+    id: "7",
     name: "Lightning Network Node Badge",
     price: 34.99,
     category: "Blockchain",
@@ -66,7 +66,7 @@ export const mockProducts: Product[] = [
     stock: 20,
   },
   {
-    id: 8,
+    id: "8",
     name: "RFID Implant Kit v1.0",
     price: 149.99,
     category: "NFC",
@@ -75,7 +75,7 @@ export const mockProducts: Product[] = [
     stock: 3,
   },
   {
-    id: 9,
+    id: "9",
     name: "AlphaGo Victory Commemorative",
     price: 129.99,
     category: "AI",
@@ -85,7 +85,7 @@ export const mockProducts: Product[] = [
     stock: 12,
   },
   {
-    id: 10,
+    id: "10",
     name: "Smart Contract Ledger",
     price: 78.99,
     category: "Blockchain",
@@ -95,7 +95,7 @@ export const mockProducts: Product[] = [
     stock: 18,
   },
   {
-    id: 11,
+    id: "11",
     name: "Quantum Computing Demo Chip",
     price: 499.99,
     category: "Quantum",
@@ -104,7 +104,7 @@ export const mockProducts: Product[] = [
     stock: 2,
   },
   {
-    id: 12,
+    id: "12",
     name: "IoT Sensor Array v1",
     price: 54.99,
     category: "IoT",
