@@ -14,6 +14,7 @@ import './App.css';
 import Cart from "./components/Cart/Cart";
 import { mockProducts } from "./mockProducts";
 import ProductCard from "./components/ProductCard/ProductCard";
+import ProductDetailCard from "./components/ProductDetailCard/ProductDetailCard";
 import type { Product } from "./Types/product";
 
 export interface CartItem extends Product {
@@ -144,71 +145,7 @@ export default function App() {
     setShowCart(false);
   };
   
-  // Product Detail View
-  const ProductDetail = () => {
-    if (!selectedProduct) return null;
-    const Icon = categoryIcons[selectedProduct.category] || Package;
-    const colorClass = categoryColors[selectedProduct.category] || "category-default";
-
-    return (
-      <div className="product-detail-container">
-        <button
-          onClick={() => setCurrentView("home")}
-          className="back-button"
-        >
-          ← Back to Products
-        </button>
-        <div className="product-detail-card">
-          <div className={`product-detail-image ${colorClass}-light`}>
-            <Icon className={`product-detail-icon ${colorClass}-text`} />
-          </div>
-          <div className="product-detail-content">
-            <div className="product-detail-header">
-              <div>
-                <div className={`product-detail-category ${colorClass}`}>
-                  {selectedProduct.category}
-                </div>
-                <h1 className="product-detail-title">
-                  {selectedProduct.name}
-                </h1>
-                <p className="product-detail-description">
-                  {selectedProduct.description}
-                </p>
-              </div>
-              <div className="product-detail-price-info">
-                <div className="product-detail-price">
-                  ${selectedProduct.price}
-                </div>
-                <div className="product-detail-stock">
-                  {selectedProduct.stock} units available
-                </div>
-              </div>
-            </div>
-            <div className="product-detail-actions">
-              <button
-                onClick={() => {
-                  addToCart(selectedProduct);
-                  alert("Added to cart!");
-                }}
-                className="product-detail-button product-detail-button-primary"
-              >
-                Add to Cart
-              </button>
-              <button
-                onClick={() => {
-                  addToCart(selectedProduct);
-                  setShowCart(true);
-                }}
-                className="product-detail-button product-detail-button-secondary"
-              >
-                Buy Now
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+  // ...existing code...
 
   return (
     <div className="app-container">
@@ -310,7 +247,20 @@ export default function App() {
           </>
         )}
 
-        {currentView === "product" && <ProductDetail />}
+        {currentView === "product" && selectedProduct && (
+          <ProductDetailCard
+            product={selectedProduct}
+            onAddToCart={(product) => {
+              addToCart(product);
+              alert("Added to cart!");
+            }}
+            onBuyNow={(product) => {
+              addToCart(product);
+              setShowCart(true);
+            }}
+            onBack={() => setCurrentView("home")}
+          />
+        )}
       </div>
 
       {/* Cart Sidebar */}
