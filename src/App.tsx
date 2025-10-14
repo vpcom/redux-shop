@@ -15,6 +15,7 @@ import Cart from "./components/Cart/Cart";
 import { mockProducts } from "./mockProducts";
 import ProductCard from "./components/ProductCard/ProductCard";
 import ProductDetailCard from "./components/ProductDetailCard/ProductDetailCard";
+import NavBar from "./components/NavBar/NavBar";
 import type { Product } from "./Types/product";
 
 export interface CartItem extends Product {
@@ -148,35 +149,11 @@ export default function App() {
   return (
     <div className="app-container">
       {/* Navbar */}
-      <nav className="navbar">
-        <div className="navbar-content">
-          <div
-            className="navbar-brand"
-            onClick={() => setCurrentView("home")}
-          >
-            <Cpu className="navbar-brand-icon" />
-            <div>
-              <h1 className="navbar-title">
-                TechCollector
-              </h1>
-              <p className="navbar-subtitle">
-                Rare Technology Artifacts
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={() => setShowCart(true)}
-            className="cart-button"
-          >
-            Cart
-            {cartItemCount > 0 && (
-              <span className="cart-badge">
-                {cartItemCount}
-              </span>
-            )}
-          </button>
-        </div>
-      </nav>
+      <NavBar
+        cartItemCount={cartItemCount}
+        onCartClick={() => setShowCart(true)}
+        onBrandClick={() => setCurrentView("home")}
+      />
 
       {/* Main Content */}
       <div className="main-content">
